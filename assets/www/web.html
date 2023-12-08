@@ -1,0 +1,62 @@
+<html lang="ja">
+  <head>
+    <meta name="viewport" content=" user-scalable=no">
+  </head>
+
+  <body>
+    <div style="padding-top: 4rem; text-align: center">
+      <span>
+        <font size = '7'>
+          <p id="target">カウント:0</p>
+        </font>
+        
+      </span>
+      <button
+        style="padding: 2rem; font-size: 3rem"
+        onclick="buttonPlusClick()"
+      >
+        +
+      </button>
+      <button
+        style="padding: 2rem; font-size: 3rem"
+        onclick="buttonMinusClick()"
+      >
+        -
+      </button>
+      <br />
+      <br />
+      <button
+        id="alert"
+        style="padding: 2rem; font-size: 3rem"
+        onclick="buttonSendClick()"
+      >
+        Flutterにデータを送信
+      </button>
+    </div>
+    <script>
+      let n = 0; // カウント用変数
+
+      // アプリ側からデータを受け取ってWeb画面に反映
+      function sendData(i) {
+        n = i;
+        var message = "カウント：" + i;
+        document.getElementById("target").textContent = message;
+      }
+      function buttonPlusClick() {
+        n++;
+        var message = "カウント：" + n;
+        document.getElementById("target").textContent = message;
+      }
+      function buttonMinusClick() {
+        n--;
+        var message = "カウント：" + n;
+        document.getElementById("target").textContent = message;
+      }
+      function buttonSendClick() {
+        // JavaScriptから呼び出すFlutterの処理
+        window.flutter_inappwebview.callHandler("sendData", [n]);
+      }
+    </script>
+
+  </body>
+</html>
